@@ -9,4 +9,10 @@ class BlogPost extends Model
 {
   protected $fillable = ['title', 'contents'];
   use HasFactory;
+
+  public function comments()
+  {
+    // return $this->hasMany('App\Models\Comment', 'post_id', 'blog_post_id');
+    return $this->hasMany('App\Models\Comment');
+  }
 }
