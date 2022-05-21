@@ -17,10 +17,10 @@
     @enderror
 </div>
 <div class="form-group">
-    <label for="contents">Post Contents</label>
-    <textarea id="contents" name="contents"
-        class="form-control">{{ old('contents', optional($post ?? null)->contents) }}</textarea>
-    @error('contents')
+    <label for="content">Post Content</label>
+    <textarea id="content" name="content"
+        class="form-control">{{ old('content', optional($post ?? null)->content) }}</textarea>
+    @error('content')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
 </div>

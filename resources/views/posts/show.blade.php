@@ -4,7 +4,7 @@
 
 @section('content')
     <h2>{{ $post->title }}</h2>
-    <p>{{ $post->contents }}</p>
+    <p>{{ $post->content }}</p>
     <p>Added {{ $post->created_at->diffForHumans() }}</p>
 
     @if (now()->diffInMinutes($post->created_at) < 5)

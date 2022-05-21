@@ -10,6 +10,6 @@ class Comment extends Model
   use HasFactory;
   public function blogPost()
   {
-    return $this->belongsTo('App\BlogPost');
+    return $this->belongsTo('App\Models\BlogPost');
   }
 }
