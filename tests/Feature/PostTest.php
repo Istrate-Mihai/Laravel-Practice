@@ -28,13 +28,14 @@ class PostTest extends TestCase
       'title' => 'Blog Post Title'
     ]);
     $response->assertSeeText('Blog Post Title');
+    // $response->assertSeeText('Blog Post doesn\'t have comments yet!');
   }
 
   public function testStoreValid()
   {
     $params = [
       'title' => 'Valid Title',
-      'contents' => 'At least 10 characters'
+      'content' => 'At least 10 characters'
     ];
     $this->post('/posts', $params)->assertStatus(302)->assertSessionHas('status');
     $this->assertEquals(session('status'), 'BlogPost was successfully created!');
@@ -44,14 +45,14 @@ class PostTest extends TestCase
   {
     $params = [
       'title' => 'x',
-      'contents' => 'x'
+      'content' => 'x'
     ];
 
     $this->post('/posts', $params)->assertStatus(302)->assertSessionHas('errors');
     $messages = session('errors');
     $messages = $messages->getMessages();
     $this->assertEquals($messages['title'][0], 'The title must be at least 5  characters.');
-    $this->assertEquals($messages['contents'][0], 'The contents must be at least 10 characters.');
+    $this->assertEquals($messages['content'][0], 'The content must be at least 10 characters.');
   }
 
   public function testUpdateValid()
@@ -59,7 +60,7 @@ class PostTest extends TestCase
     $post = $this->createDummyBlogPost();
     $params = [
       'title' => 'A new named title',
-      'contents' => 'Content was changed'
+      'content' => 'Content was changed'
     ];
 
     $this->put("/posts/{$post->id}", $params)->assertStatus(302)->assertSessionHas('status');
@@ -83,7 +84,7 @@ class PostTest extends TestCase
   {
     $post = new BlogPost();
     $post->title = 'Blog Post Title';
-    $post->contents = 'Blog Post Contents';
+    $post->content = 'Blog Post Contents';
     $post->save();
 
     return $post;

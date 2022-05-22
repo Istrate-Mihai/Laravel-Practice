@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StorePost;
 use App\Models\BlogPost;
 use Faker\Core\Blood;
+use Illuminate\Support\Facades\DB;
+// use Illumintate\Support\Facades;
 
 class PostsController extends Controller
 {
@@ -35,7 +37,23 @@ class PostsController extends Controller
    */
   public function index()
   {
-    return view('posts.index', ['posts' => BlogPost::all()]);
+    // DB::connection()->enableQueryLog();
+
+    // $posts = BlogPost::with('comments')->get(); // all();
+    // foreach ($posts as $post) {
+    //   foreach ($post->comments as $comment) {
+    //     echo $comment;
+    //   }
+    // }
+
+    // dd(DB::getQueryLog());
+
+    return view(
+      'posts.index',
+      [
+        'posts' => BlogPost::withCount('comments')->get()
+      ]
+    );
   }
 
   /**
