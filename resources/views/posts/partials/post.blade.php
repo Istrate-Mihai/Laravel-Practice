@@ -4,7 +4,7 @@
      @if ($post->comments_count)
          <p>Blog Post has {{ $post->comments_count }} comments</p>
      @else
-         <p>Blog Post doesn't have comments yet!</p>
+         <p>No comments yet!</p>
      @endif
      <a href="{{ route('posts.edit', ['post' => $post]) }}" class="btn btn-primary">Edit</a>
      <form class="d-inline" action="{{ route('posts.destroy', ['post' => $post]) }}" method="POST">
