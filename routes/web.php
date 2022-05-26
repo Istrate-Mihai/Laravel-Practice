@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\PostsController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -84,3 +86,4 @@ use App\Http\Controllers\PostsController;
 Route::view('/', 'home.index')->name('home.index');
 Route::view('/contact', 'home.contact')->name('home.contact');
 Route::resource('/posts', PostsController::class);
+Auth::routes();
