@@ -48,7 +48,12 @@ class PostTest extends TestCase
       'title' => 'Valid Title',
       'content' => 'At least 10 characters'
     ];
-    $this->post('/posts', $params)->assertStatus(302)->assertSessionHas('status');
+
+    $this->actingAs($this->user())
+      ->post('/posts', $params)
+      ->assertStatus(302)
+      ->assertSessionHas('status');
+
     $this->assertEquals(session('status'), 'BlogPost was successfully created!');
   }
 
@@ -59,7 +64,11 @@ class PostTest extends TestCase
       'content' => 'x'
     ];
 
-    $this->post('/posts', $params)->assertStatus(302)->assertSessionHas('errors');
+    $this->actingAs($this->user())
+      ->post('/posts', $params)
+      ->assertStatus(302)
+      ->assertSessionHas('errors');
+
     $messages = session('errors');
     $messages = $messages->getMessages();
     $this->assertEquals($messages['title'][0], 'The title must be at least 5  characters.');
@@ -74,7 +83,11 @@ class PostTest extends TestCase
       'content' => 'Content was changed'
     ];
 
-    $this->put("/posts/{$post->id}", $params)->assertStatus(302)->assertSessionHas('status');
+    $this->actingAs($this->user())
+      ->put("/posts/{$post->id}", $params)
+      ->assertStatus(302)
+      ->assertSessionHas('status');
+
     $this->assertDatabaseMissing('blog_posts', $post->toArray());
     $this->assertDatabaseHas('blog_posts', [
       'title' => 'A new named title'
@@ -84,9 +97,11 @@ class PostTest extends TestCase
   public function testDelete()
   {
     $post = $this->createDummyBlogPost();
-    $this->delete("/posts/{$post->id}")
+    $this->actingAs($this->user())
+      ->delete("/posts/{$post->id}")
       ->assertStatus(302)
       ->assertSessionHas('status');
+
     $this->assertDatabaseMissing('blog_posts', $post->toArray());
     $this->assertEquals(session('status'), 'BlogPost was successfully deleted!');
   }

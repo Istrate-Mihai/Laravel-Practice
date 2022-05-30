@@ -83,7 +83,10 @@ use App\Http\Controllers\PostsController;
 //   })->name('download');
 // });
 
-Route::view('/', 'home.index')->name('home.index');
+// Route::view('/', 'home.index')->name('home.index');
+Route::get('/', [HomeController::class, 'home'])
+  ->name('home.index');
+//->middleware('auth');
 Route::view('/contact', 'home.contact')->name('home.contact');
 Route::resource('/posts', PostsController::class);
 Auth::routes();
