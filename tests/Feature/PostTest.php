@@ -112,9 +112,8 @@ class PostTest extends TestCase
     // $post->title = 'Blog Post Title';
     // $post->content = 'Blog Post Content';
     // $post->save();
-
-    return BlogPost::factory()->altered()->create();
-
     // return $post;
+
+    return BlogPost::factory()->configure()->create();
   }
 }

@@ -19,7 +19,7 @@ class BlogPostFactory extends Factory
     ];
   }
 
-  public function altered()
+  public function configure()
   {
     return $this->state([
       'title' => 'Blog Post Title',
